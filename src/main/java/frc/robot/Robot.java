@@ -20,16 +20,20 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 public class Robot extends TimedRobot {
   
   private DifferentialDrive m_myRobot;
-  private Joystick m_leftStick;
-  private Joystick m_rightStick;
+  private Joystick leftStick;
   private static final int leftDeviceID1 = 3;
   private static final int leftDeviceID2 = 4;  
   private static final int rightDeviceID1 = 5;
   private static final int rightDeviceID2 = 6;
+  private static final int armDeviceID1 = 7;
+  private static final int intakeDeviceId1 = 8;
   private CANSparkMax m_leftMotor1;
   private CANSparkMax m_rightMotor1;
   private CANSparkMax m_leftMotor2;
   private CANSparkMax m_rightMotor2;
+  private CANSparkMax m_armMotor1;
+  private CANSparkMax m_intakeMotor1;
+  private double previousPOV;
 
   @Override
   public void robotInit() {
@@ -50,26 +54,36 @@ public class Robot extends TimedRobot {
     m_rightMotor1 = new CANSparkMax(rightDeviceID1, MotorType.kBrushless);
     m_leftMotor2 = new CANSparkMax(leftDeviceID2, MotorType.kBrushless);
     m_rightMotor2 = new CANSparkMax(rightDeviceID2, MotorType.kBrushless);
+    m_armMotor1 = new CANSparkMax(armDeviceID1,MotorType.kBrushless);
+    m_intakeMotor1 = new CANSparkMax(intakeDeviceId1,MotorType.kBrushless);
+    m_intakeMotor1.setSmartCurrentLimit(30);
     MotorControllerGroup m_left = new MotorControllerGroup(m_leftMotor1, m_leftMotor2);
     MotorControllerGroup m_right = new MotorControllerGroup(m_rightMotor1, m_rightMotor2);
 
-    /**
-     * The RestoreFactoryDefaults method can be used to reset the configuration parameters
-     * in the SPARK MAX to their factory default state. If no argument is passed, these
-     * parameters will not persist between power cycles
-     */
     m_leftMotor1.restoreFactoryDefaults();
     m_rightMotor1.restoreFactoryDefaults();
     m_leftMotor2.restoreFactoryDefaults();
     m_rightMotor2.restoreFactoryDefaults();
+    m_armMotor1.restoreFactoryDefaults();
+    m_intakeMotor1.restoreFactoryDefaults();
 
     m_myRobot = new DifferentialDrive(m_left, m_right);
 
-    m_leftStick = new Joystick(0);
+    leftStick = new Joystick(0);
+    leftStick.toString();
   }
 
   @Override
   public void teleopPeriodic() {
-    m_myRobot.tankDrive(-m_leftStick.getRawAxis(1), m_leftStick.getRawAxis(5));
+    m_myRobot.tankDrive(-leftStick.getRawAxis(1), leftStick.getRawAxis(5));
+    if(leftStick.getRawButton(1))
+    {
+      System.out.println("you are stupid");
+    }
+    if(leftStick.getPOV() != previousPOV)
+    {
+      System.out.println(Math.abs(leftStick.getPOV()-previousPOV));
+    }
+    previousPOV = leftStick.getPOV()+1;
   }
 }
