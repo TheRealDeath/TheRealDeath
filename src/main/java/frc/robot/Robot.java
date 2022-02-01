@@ -33,7 +33,8 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_rightMotor2;
   private CANSparkMax m_armMotor1;
   private CANSparkMax m_intakeMotor1;
-  private double previousPOV;
+  private int previousPOV;
+  private double previousThrottle;
 
   @Override
   public void robotInit() {
@@ -75,15 +76,27 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    m_myRobot.tankDrive(-leftStick.getRawAxis(1), leftStick.getRawAxis(5));
-    if(leftStick.getRawButton(1))
-    {
-      System.out.println("you are stupid");
-    }
+    //m_myRobot.tankDrive(-leftStick.getRawAxis(1), leftStick.getRawAxis(5));
+    m_myRobot.arcadeDrive(leftStick.getRawAxis(1), leftStick.getRawAxis(5));
+    int i = 0;
     if(leftStick.getPOV() != previousPOV)
     {
       System.out.println(Math.abs(leftStick.getPOV()-previousPOV));
     }
-    previousPOV = leftStick.getPOV()+1;
+    if(leftStick.getRawButton(3))
+    {
+      while(true)
+      {
+        System.out.println("going up");
+        if(i++ == 20)
+          break;
+      }
+    }
+    if(leftStick.getRawAxis(1) != previousThrottle)
+    {
+      System.out.println(leftStick.getRawAxis(1));
+    }
+    previousThrottle = leftStick.getRawAxis(1);
+    previousPOV = leftStick.getPOV();
   }
 }
