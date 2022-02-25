@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @TheRealDeath
-- 👀 I’m interested in Computer Science and Mathamatics.
+- 👀 I’m interested in Computer Science and Mathematics.
 - 🌱 I’m currently learning Java and Python.
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
