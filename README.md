@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @TheRealDeath
 - 👀 I’m interested in Computer Science and Mathematics.
-- 🌱 I’m currently learning Java and Python.
+- 🌱 I’m currently learning how to program and use advanced data structures such as Kd trees and skip lists.
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
 
